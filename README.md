@@ -3,8 +3,8 @@
 ##Human Activity Recognition Project Analysis
 -----------------------------------------------------------
 -----------------------------------------------------------
-*Created by -Roopa G. A.
-*Course: Coursera Getting and Cleaning Data Project 4
+* Created by -Roopa G. A.
+* Course: Coursera Getting and Cleaning Data Project 4
 *Dataset: Based on the description provided http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones
 *Dataset: https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip
 *Project: To do the following
