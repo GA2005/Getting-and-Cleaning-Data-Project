@@ -52,9 +52,11 @@ names(Data_all)<-gsub("^f", "frequency", names(Data_all))
 names(Data_all)<-gsub("Gyro", "Gyroscope", names(Data_all))
 names(Data_all)<-gsub("BodyBody", "Body", names(Data_all))
 names(Data_all)<-gsub("Mag", "Magnitude", names(Data_all))
-#Summurize the data subject and activity and create a new tidy dataset.
+#Summarize the data subject and activity and create a new tidy dataset.
 library(dplyr)
 data_summary <- group_by(Data_all,subject,activity)
 data_sum<-summarise_each(data_summary,funs(mean))
 write.table(data_sum, file = "tidydata.txt",row.name=FALSE)
-
+#CReate code book using the knitr package
+library(knitr)
+rmarkdown::render("codebook.md")
