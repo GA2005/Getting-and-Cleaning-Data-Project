@@ -57,6 +57,3 @@ library(dplyr)
 data_summary <- group_by(Data_all,subject,activity)
 data_sum<-summarise_each(data_summary,funs(mean))
 write.table(data_sum, file = "tidydata.txt",row.name=FALSE)
-#CReate code book using the knitr package
-library(knitr)
-rmarkdown::render("codebook.md")
