@@ -1,0 +1,93 @@
+---
+title: "Run_analysis_Markdown"
+output: html_document
+---
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+This program is intended to show the Tidy dataset. 
+
+Part1: 
+The program downloads the file from the file location. 
+sets working directory of the Project
+Download the Dataset from the url location
+unzip the file to the data location. Reads all th files to respective variables of the dataframes.
+
+```{r}
+setwd ("C://DataSceince//cleaning data//Week4//Project")
+
+if(!file.exists("./data")){dir.create("./data")}
+fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
+download.file(fileUrl,destfile="./data/Dataset.zip")
+
+unzip(zipfile="./data/Dataset.zip",exdir="./data")
+
+## Set working directory of the dataset
+setwd ("C://DataSceince//cleaning data//Week4//Project//data//UCI HAR Dataset")
+xtest <- read.table(".//test//X_test.txt", sep = "")
+
+## Read all the
+ytest <- read.table(".//test//y_test.txt", sep = "")
+subtest <- read.table(".//test//subject_test.txt", sep = "")
+xtrain <- read.table(".//train//X_train.txt", sep="")
+ytrain <- read.table(".//train//y_train.txt", sep ="")
+subtrain <- read.table(".//train//subject_train.txt", sep ="")
+activity_lab <- read.table(".//activity_labels.txt")
+features <- read.table(".//features.txt")
+```
+Part2: The Dataset is named  with the labels made from the Subject, Activity  and feature names extracted from the features dataframe.
+The Train and Test Datasets are merged by using appropriate Binding functions to create a combined dataset. Testing of the dataset is performed using the str functions to check the validity of the data frames
+
+```{r}
+names(subtrain)<- "subject"
+names(ytrain)<-"activity"
+names(xtrain)<-features$V2
+
+train<- cbind(ytrain,xtrain)
+str(train)
+train_s <- cbind(subtrain,train)
+str(train_s)
+names(subtest)<- "subject"
+names(ytest)<- "activity"
+names(xtest)<-features$V2
+
+test<- cbind(ytest,xtest)
+str(test)
+Test_s<- cbind(subtest,test)
+str(Test_s)
+Bind_all<- rbind(Test_s,train_s)
+str(Bind_all)
+featurename<- features$V2[grep("mean\\(\\)|std\\(\\)",features$V2)]
+```
+Part3: The mean and standard deviation columns are extracted from the dataset along with the activity and subjects. 
+```{r}
+selectedNames<-c(as.character(featurename), "subject", "activity" )
+selectedNames
+Data_all <- subset(Bind_all,select=selectedNames)
+```
+Part4: The Activity names are substituted via a lookup list from the qdaptools package.
+```{r}
+library(qdapTools)
+Data_all$activity <-lookup(Data_all$activity, (activity_lab$V1), c("WALKING","WALKING_UPSTAIRS","WALKING_DOWNSTAIRS","SITTING","STANDING","LAYING"))
+```
+Part5: Descritive names for t-time, Acc-Accelerometer are named for the columns of the Dataframe
+```{r}
+names(Data_all)<-gsub("Acc", "Accelerometer", names(Data_all))
+names(Data_all)<-gsub("^f", "frequency", names(Data_all))
+names(Data_all)<-gsub("Gyro", "Gyroscope", names(Data_all))
+names(Data_all)<-gsub("BodyBody", "Body", names(Data_all))
+names(Data_all)<-gsub("Mag", "Magnitude", names(Data_all))
+Data_all
+```
+Part6: An independent tidy dataset is created with averaging each variable with activity and subject using the dplyr library. The tidy Dataset is generatared as a txt file.
+```{r}
+library(dplyr)
+data_summary <- group_by(Data_all,subject,activity)
+data_summary
+data_sum<-summarise_each(data_summary,funs(mean))
+data_sum
+write.table(data_sum, file = "tidydata.txt",row.name=FALSE)
+```
+
+
