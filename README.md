@@ -24,17 +24,17 @@
 * README.txt
 * run_analysis.R : Provides the code for the entire Analysis of the Project
 * codebook.R : Provides code to create the codebook.
-* codebook.md: Markdown file created for the creation of the codebook
-* tidydata.txt : Created after the step 5. of the Project desctiption
+* codebook.Rmd: Markdown file created for the creation of the codebook
+* tidydata.txt : Created after the step 5. of the Project description
 * codebook.html : html created codebook
-* codebook.txt: Text file created on the codebook creation run using the codebook.R based on the markdown file.
+
 
 ----------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------------
 
 ###To use the code 
 * The code is tested in Windows environment in RStudio R Version 3.2.3
-* 1. Open the run_analysis.R in R Studio. Make sure to change the working directory to the corresponding directory on your file syste,. 
+* 1. Open the run_analysis.R in R Studio. Make sure to change the working directory to the corresponding directory on your file system. 
 * 2. Execute the file in R studio
-* 3. a output of tidy.txt should be created in the working directory
-* 4. A codebook will also be created in the working directory.
+* 3. An output of tidy.txt should be created in the working directory
+* 4. Running the codebook.R will create the codebook.html in the working directory.
