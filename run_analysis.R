@@ -55,5 +55,7 @@ names(Data_all)<-gsub("Mag", "Magnitude", names(Data_all))
 #Summarize the data subject and activity and create a new tidy dataset.
 library(dplyr)
 data_summary <- group_by(Data_all,subject,activity)
+data_summary
 data_sum<-summarise_each(data_summary,funs(mean))
+data_sum
 write.table(data_sum, file = "tidydata.txt",row.name=FALSE)

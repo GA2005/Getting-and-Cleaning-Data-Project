@@ -27,7 +27,7 @@ unzip(zipfile="./data/Dataset.zip",exdir="./data")
 setwd ("C://DataSceince//cleaning data//Week4//Project//data//UCI HAR Dataset")
 xtest <- read.table(".//test//X_test.txt", sep = "")
 
-## Read all the
+## Read all the data files
 ytest <- read.table(".//test//y_test.txt", sep = "")
 subtest <- read.table(".//test//subject_test.txt", sep = "")
 xtrain <- read.table(".//train//X_train.txt", sep="")
@@ -71,14 +71,14 @@ Part4: The Activity names are substituted via a lookup list from the qdaptools p
 library(qdapTools)
 Data_all$activity <-lookup(Data_all$activity, (activity_lab$V1), c("WALKING","WALKING_UPSTAIRS","WALKING_DOWNSTAIRS","SITTING","STANDING","LAYING"))
 ```
-Part5: Descritive names for t-time, Acc-Accelerometer are named for the columns of the Dataframe
+Part5: Descriptive names for t-time, Acc-Accelerometer are named for the columns of the Dataframe
 ```{r}
 names(Data_all)<-gsub("Acc", "Accelerometer", names(Data_all))
 names(Data_all)<-gsub("^f", "frequency", names(Data_all))
 names(Data_all)<-gsub("Gyro", "Gyroscope", names(Data_all))
 names(Data_all)<-gsub("BodyBody", "Body", names(Data_all))
 names(Data_all)<-gsub("Mag", "Magnitude", names(Data_all))
-Data_all
+
 ```
 Part6: An independent tidy dataset is created with averaging each variable with activity and subject using the dplyr library. The tidy Dataset is generatared as a txt file.
 ```{r}
