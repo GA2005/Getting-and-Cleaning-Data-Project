@@ -26,7 +26,7 @@
 * codebook.R : Provides code to create the codebook.
 * codebook.Rmd: Markdown file created for the creation of the codebook
 * tidydata.txt : Created after the step 5. of the Project description
-* codebook.html : html created codebook
+* codebook.html : codebook created in html format
 
 
 ----------------------------------------------------------------------------------------------------------------------------
